@@ -1,16 +1,31 @@
-import React from 'react'
+import React, { useState } from 'react'
 
-const ListCreateForm = () => {
+const ListCreateForm = (props) => {
+
+  const [text,setText] = useState("");
+
+  const textInputHandler = (e) => {
+    setText(e.target.value)
+
+  }
+
+  const addBtnHandler = () => {
+    props.addTask(text)
+    setText("")
+  }
   return (
     <div className="w-full h-[60px] flex">
     <input
       type="text"
       id="textInput"
       className="flex-grow outline-none px-3 border border-teal-400"
+      value={text}
+      onChange={textInputHandler}
     />
     <button
       className="h-full w-[60px] bg-teal-900 flex justify-center items-center text-teal-200 border-none"
       id="addBtn"
+      onClick={addBtnHandler}
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"

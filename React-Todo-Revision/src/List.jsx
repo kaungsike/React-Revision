@@ -1,25 +1,71 @@
-import React from "react";
+import React, { useState } from "react";
 
 const List = (props) => {
+
+  const [edit,setEdit] = useState(false);
+
+  const [newJob,setNewJob] = useState(props.job)
+
+  const checkBoxHandler = () => {
+    props.checkTask(props.id)
+  }
+
+  const deleteBtnHandler = () => {
+    if(confirm("Are tou sure to delete?")){
+      props.deleteTask(props.id)
+    }
+  }
+
+  const editBtnHandler = () => {
+    setEdit(true);
+  }
+
+  const newJobInput = (e) => {
+    setNewJob(e.target.value)
+  }
+
+  const updateEdit = (e) => {
+    if(e.key=="Escape" || e.key=="Enter"){
+      props.editTask(e.target.value,props.id)
+      setEdit(false)
+    }
+  }
+
+  // const run = (e) => {
+  //   if(edit){
+  //     props.editTask(newJob, )
+  //   }
+  // }
+
+  // document.querySelector("body").addEventListener("click",run)
+
+
   return (
-    <div className="list border group  border-teal-400 w-full h-[65px] flex justify-between items-center px-3 text-teal-800 overflow-hidden duration-200 mb-2 hover:scale-105">
+    <div className={`list border group  border-teal-400 w-full h-[65px] flex justify-between items-center px-3 text-teal-800 overflow-hidden duration-200 mb-2 hover:scale-105 ${props.isDone&& "opacity-50 pointer-events-none"}`}>
       <aside className="flex items-center h-full gap-2">
         <input
           type="checkbox"
           name="check-box"
           id="check-box"
           className="list-check-box w-4 h-4 accent-teal-200 outline-none border border-teal-400"
+          disabled={edit}
           checked={props.isDone}
+          onChange={checkBoxHandler}
           
         />
         <label className="list-text" htmlFor="check-box">
-          {props.job}
+          {
+            edit? <input value={newJob} onChange={newJobInput} onKeyUp={updateEdit} type="text" className="border outline-none px-3 py-1" />:<p className={`${props.isDone && "line-through"}`}>{props.job}</p>
+          }
+          
+          
         </label>
       </aside>
       <aside className="h-full flex items-center gap-2 translate-x-[115%] group-hover:translate-x-[5%] duration-300">
         <button
           className="list-del-btn border border-teal-400 w-[50px] h-[50px] flex items-center justify-center active:scale-90"
           fdprocessedid="ojnuvd"
+          onClick={deleteBtnHandler}
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -37,6 +83,8 @@ const List = (props) => {
         <button
           className="list-edit-btn border border-teal-400 w-[50px] h-[50px] flex items-center justify-center active:scale-90"
           fdprocessedid="jw74f"
+          onClick={editBtnHandler}
+
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
