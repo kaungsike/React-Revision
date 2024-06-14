@@ -1,18 +1,27 @@
-import KS from "./KS";
+// import em from "em"
+import Heading from "./Heading";
+import ListCreateForm from "./ListCreateForm";
+import ListGroup from "./ListGroup";
+import Status from "./Status";
+import React from "react";
 
 const App = () => {
-    // const headingStyle = {
-    //     color : "skyblue",
-    //     fontFamily : "sans-serif"
-    // }
-    return (
-        <div className="border border-black p-10">
-            {/* <KS/> */}
-            <h1 className="text-3xl font-bold text-center mb-4">Hello React</h1>
-            <p className="bole text-gray-600">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quasi magni sunt fugit ratione modi, exercitationem delectus facere veniam nulla quos itaque id odit quidem, necessitatibus eum distinctio deserunt quod laboriosam.</p>
-            <button className="border border-gray-600 p-4 bg-cyan-400">Click Me</button>
-        </div>
-    )
-}
+  return (
+    <section
+      id="container"
+      className="border bg-teal-200 border-teal-400 w-[500px] mx-auto mt-10 p-10"
+    >
+      <Heading  title="Hello" className="aaa bbb ccc hhh"/>
+
+
+      <ListCreateForm />
+
+      <Status />
+
+      <ListGroup />
+      
+    </section>
+  );
+};
 
 export default App;
