@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
 const Box = (props) => {
-  const [hide, setHide] = useState(true);
+  // const [hide, setHide] = useState(true);
 
   // const handleOpenBtn = () => {
   //     setHide(false)
@@ -11,31 +11,34 @@ const Box = (props) => {
   //     setHide(true)
   // }
 
-  const toggleBtn = () => {
-    setHide(!hide);
+  const clickBtn = () => {
+    props.click(props.id);
   };
 
   return (
-    <div className="grid grid-cols-2 gap-1 m-0">
+    <div className="grid grid-cols-2 gap-1 m-0 mb-1">
       <button
-        onClick={toggleBtn}
+        onClick={clickBtn}
         className=" flex items-center justify-between gap-3 p-4
          bg-neutral-500 col-span-2 rounded text-white text-xl active:scale-95 duration-150"
       >
-        {props.question}           <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            strokeWidth={1.5}
-            stroke="currentColor"
-            className={`duration-200 size-5 ${ hide ? "rotate-0" : "rotate-90"}`}
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="m5.25 4.5 7.5 7.5-7.5 7.5m6-15 7.5 7.5-7.5 7.5"
-            />
-          </svg>
+        {props.question}{" "}
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          strokeWidth={1.5}
+          stroke="currentColor"
+          className={`duration-200 size-5 ${
+            props.hide ? "rotate-0" : "rotate-90"
+          }`}
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            d="m5.25 4.5 7.5 7.5-7.5 7.5m6-15 7.5 7.5-7.5 7.5"
+          />
+        </svg>
       </button>
       {/* <button onClick={handleOpenBtn} className=" bg-green-600 text-white active:scale-95 duration-200 rounded-md py-3 border-neutral-700 col-span-1">
         Show
@@ -45,12 +48,10 @@ const Box = (props) => {
       </button> */}
       <div
         className={`${
-          hide && `hidden`
-        } border border-neutral-200 p-3 col-span-2 rounded-md `}
+          props.hide && `hidden`
+        } border bg-neutral-200 border-neutral-200 p-3 col-span-2 rounded-md `}
       >
-        <p>
-          {props.answer}
-        </p>
+        <p>{props.answer}</p>
       </div>
     </div>
   );
