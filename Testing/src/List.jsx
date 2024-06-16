@@ -1,22 +1,75 @@
 import React from "react";
+import { useState } from "react";
 
 const List = (props) => {
+  const [isEdit, setIsEdit] = useState(false);
+
+  const [newJob,setNewJob] = useState(props.job)
+
+  const handleCheckBox = () => {
+    props.checkTask(props.id);
+  };
+
+  const handleDeleteBtn = () => {
+    if (confirm("Are you sure to delete?")) {
+      props.deleteTask(props.id);
+    }
+  };
+
+  const handleEditBtn = () => {
+    setIsEdit(true)
+  };
+
+  const handleNewJobInput = (e) => {
+    setNewJob(e.target.value)
+  }
+
+  const handleNewJobInputUpdate = (e) => {
+    if(e.key === "Enter"){
+      props.deleteTask(newJob,props.id)
+      setIsEdit(false)
+    }
+  }
+
   return (
-    <div className="list border group  border-teal-400 w-full h-[65px] flex justify-between items-center px-3 text-teal-800 overflow-hidden duration-200 mb-2 hover:scale-105">
+    <div
+      key={props.id}
+      className={`list border group  border-teal-400 w-full h-[65px] flex justify-between items-center px-3 text-teal-800 overflow-hidden duration-200 mb-2 hover:scale-105 ${
+        props.isDone && "pointer-events-none opacity-75"
+      }`}
+    >
       <aside className="flex items-center h-full gap-2">
         <input
-            checked = {props.isDone}
+          checked={props.isDone}
           type="checkbox"
           name="check-box"
           id="check-box"
+          disabled={isEdit}
+          onChange={handleCheckBox}
           className="list-check-box w-4 h-4 accent-teal-200 outline-none border border-teal-400"
         />
-        <label className="list-text" htmlFor="check-box">
-          {props.job}
-        </label>
+        {isEdit ? (
+          <input
+            type="text"
+            className={`border border-teal-300 outline-none px-2 py-1`}
+            name=""
+            id=""
+            value={newJob}
+            onChange={handleNewJobInput}
+            onKeyUp={handleNewJobInputUpdate}
+          />
+        ) : (
+          <label
+            className={`list-text ${props.isDone && "line-through"}`}
+            htmlFor="check-box"
+          >
+            {newJob}
+          </label>
+        )}
       </aside>
       <aside className="h-full flex items-center gap-2 translate-x-[115%] group-hover:translate-x-[5%] duration-300">
         <button
+          onClick={handleDeleteBtn}
           className="list-del-btn border border-teal-400 w-[50px] h-[50px] flex items-center justify-center active:scale-90"
           fdprocessedid="ojnuvd"
         >
@@ -34,6 +87,7 @@ const List = (props) => {
           </svg>
         </button>
         <button
+          onClick={handleEditBtn}
           className="list-edit-btn border border-teal-400 w-[50px] h-[50px] flex items-center justify-center active:scale-90"
           fdprocessedid="jw74f"
         >

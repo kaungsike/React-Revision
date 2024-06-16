@@ -42,10 +42,12 @@ const App = () => {
   ]);
 
   const click = (id) => {
-    console.log("U click",id)
     setFaqs(faqs.map((faq) => {
       if(faq.id === id){
         faq.hide = !faq.hide;
+      }
+      else{
+        faq.hide = true;
       }
       return faq;
     }))
