@@ -1,12 +1,12 @@
-import React from 'react'
+import React from "react";
 import em from "./assets/em.svg";
-import List from './List';
+import List from "./List";
 
-const ListGroup = () => {
+const ListGroup = (props) => {
   return (
     <div id="listGroup" className="w-full h-full">
-    {/*list  */}
-    {/* <div class="list border group border-teal-400 w-full h-[65px] flex justify-between items-center px-3 text-teal-800 overflow-hidden hover:scale-105 duration-200 mb-2">
+      {/*list  */}
+      {/* <div class="list border group border-teal-400 w-full h-[65px] flex justify-between items-center px-3 text-teal-800 overflow-hidden hover:scale-105 duration-200 mb-2">
                   <aside class="flex items-center h-full gap-2">
                       <input type="checkbox" name="check-box"
                           id="check-box"
@@ -38,13 +38,23 @@ const ListGroup = () => {
                       </button>
                   </aside>
               </div> */}
-              <List/>
-    <div className="hidden flex-col items-center gap-2 first:flex">
-      <img className="w-[300px]" src={em} />
-      <p>There is no list</p>
+      {props.tasks.map((task) => (
+        <List
+          id={task.id}
+          listCheck={props.listCheck}
+          job={task.job}
+          isDone={task.isDone}
+          key={task.id}
+          listDelete={props.listDelete}
+          editTask={props.editTask}
+        />
+      ))}
+      <div className="hidden flex-col items-center gap-2 first:flex">
+        <img className="w-[300px]" src={em} />
+        <p>There is no list</p>
+      </div>
     </div>
-  </div>
-  )
-}
+  );
+};
 
-export default ListGroup
+export default ListGroup;

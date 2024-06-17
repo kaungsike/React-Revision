@@ -1,21 +1,69 @@
 import React from "react";
+import { useState } from "react";
 
-const List = () => {
+const List = (props) => {
+  const [input, setInput] = useState(props.job);
+
+  const [isEdit, setIsEdit] = useState(false);
+
+  const handelCheckBox = () => {
+    props.listCheck(props.id);
+  };
+
+  const listDelBtn = () => {
+    if(confirm("Are you sure to delete your list?")){
+    props.listDelete(props.id)
+    }
+  };
+
+  const listEditBtn = () => {
+    setIsEdit(true);
+
+  };
+
+  const handleInput = (e) => {
+    setInput(e.target.value)
+  }
+
+  const listEditUpdate = (e) => {
+    if(e.key === "Enter"){
+        props.editTask(input,props.id)
+        setIsEdit(false)
+    }
+  };
+
   return (
-    <div className="list border group  border-teal-400 w-full h-[65px] flex justify-between items-center px-3 text-teal-800 overflow-hidden duration-200 mb-2 hover:scale-105">
+    <div className={`list border group  border-teal-400 w-full h-[65px] flex justify-between items-center px-3 text-teal-800 overflow-hidden duration-200 mb-2 hover:scale-105 ${props.isDone && `pointer-events-none opacity-70`}`}>
       <aside className="flex items-center h-full gap-2">
         <input
           type="checkbox"
           name="check-box"
           id="check-box"
+          checked={props.isDone}
+          onChange={handelCheckBox}
+          disabled={isEdit}
           className="list-check-box w-4 h-4 accent-teal-200 outline-none border border-teal-400"
         />
-        <label className="list-text" htmlFor="check-box">
-          san gyi dr pr
-        </label>
+        {isEdit ? (
+          <input
+            type="text"
+            className="border border-teal-300 outline-none py-1 px-2"
+            onKeyUp={listEditUpdate}
+            value={input}
+            onChange={handleInput}
+          />
+        ) : (
+          <label
+            className={`list-text ${props.isDone && "line-through"}`}
+            htmlFor="check-box"
+          >
+            {props.job}
+          </label>
+        )}
       </aside>
       <aside className="h-full flex items-center gap-2 translate-x-[115%] group-hover:translate-x-[5%] duration-300">
         <button
+          onClick={listDelBtn}
           className="list-del-btn border border-teal-400 w-[50px] h-[50px] flex items-center justify-center active:scale-90"
           fdprocessedid="ojnuvd"
         >
@@ -33,6 +81,7 @@ const List = () => {
           </svg>
         </button>
         <button
+          onClick={listEditBtn}
           className="list-edit-btn border border-teal-400 w-[50px] h-[50px] flex items-center justify-center active:scale-90"
           fdprocessedid="jw74f"
         >
