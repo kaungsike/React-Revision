@@ -1,5 +1,6 @@
 import React from "react";
 import { useState } from "react";
+import toast from 'react-hot-toast';
 
 const List = (props) => {
   const [input, setInput] = useState(props.job);
@@ -13,6 +14,7 @@ const List = (props) => {
   const listDelBtn = () => {
     if(confirm("Are you sure to delete your list?")){
     props.listDelete(props.id)
+    toast.success('List Deleted!');
     }
   };
 
@@ -96,6 +98,7 @@ const List = (props) => {
           </svg>
         </button>
       </aside>
+      
     </div>
   );
 };

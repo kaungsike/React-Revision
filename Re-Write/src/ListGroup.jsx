@@ -1,6 +1,7 @@
 import React from "react";
 import em from "./assets/em.svg";
 import List from "./List";
+import toast, { Toaster } from 'react-hot-toast';
 
 const ListGroup = (props) => {
   return (
@@ -49,6 +50,7 @@ const ListGroup = (props) => {
           editTask={props.editTask}
         />
       ))}
+      <Toaster />
       <div className="hidden flex-col items-center gap-2 first:flex">
         <img className="w-[300px]" src={em} />
         <p>There is no list</p>
