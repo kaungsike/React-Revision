@@ -1,4 +1,5 @@
 import React from "react";
+import { FaBeer } from 'react-icons/fa';
 import { useState } from "react";
 import MainHeader from "./components/MainHeader";
 import SubHeading from "./components/SubHeading";
@@ -57,16 +58,34 @@ const App = () => {
     setIsOpen(!isOpen);
   };
 
+  const handleQuantity = (id,amount) => {
+    setItems(items.map((item) => {
+      if(item.id === id){
+        item.quantity = parseInt(item.quantity) + amount;
+        item.cost = parseFloat(item.product.price*item.quantity)
+      }
+      return item;
+    }))
+  }
+
+  const HandleDelList = (id) => {
+    setItems(items.filter((item) => item.id!==id 
+    
+  ))
+  }
+
+
+
   return (
     <main className="min-h-screen max-w-[700px] mx-auto py-[60px] flex flex-col">
       <MainHeader></MainHeader>
       <SubHeading></SubHeading>
       <section>
         <ListCreateForm addNewItem={addNewItem} addNewProduct={addNewProduct} products={products}></ListCreateForm>
-        <ListGroup items={items} products={products}></ListGroup>
+        <ListGroup HandleDelList={HandleDelList} handleQuantity={handleQuantity} items={items} products={products}></ListGroup>
       </section>
       <Footer handleInventoryBtn={handleInventoryBtn}></Footer>
-      <Drawer isOpen={isOpen} handleInventoryBtn={handleInventoryBtn}></Drawer>
+      <Drawer addNewProduct={addNewProduct} products={products} isOpen={isOpen} handleInventoryBtn={handleInventoryBtn}></Drawer>
     </main>
   );
 };

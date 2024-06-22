@@ -1,39 +1,31 @@
 import React, { useRef } from "react";
 import { Button, Label, Select, TextInput } from "flowbite-react";
 
-const ListCreateForm = ({ products, addNewProduct ,addNewItem }) => {
-
+const ListCreateForm = ({ products, addNewProduct, addNewItem }) => {
   const formRef = useRef();
 
   const selectRef = useRef();
   const quantityRef = useRef();
 
   const handleForm = (e) => {
-    e.preventDefault(); 
+    e.preventDefault();
 
-    const productInfo = products.find((product) => 
-    
-      product.name ==selectRef.current.value
+    const productInfo = products.find(
+      (product) => product.name == selectRef.current.value
+    );
 
-    )
-
-    const cost = (productInfo.price*quantityRef.current.value).toFixed(2);
-
-    console.log(productInfo)
+    const cost = (productInfo.price * quantityRef.current.value).toFixed(2);
 
     const newProduct = {
-      id : Date.now(),
-      product : productInfo,
-      quantity : quantityRef.current.value,
-      cost : cost,
-    }
+      id: Date.now(),
+      product: productInfo,
+      quantity: quantityRef.current.value,
+      cost: cost,
+    };
 
-    addNewItem(newProduct)
+    addNewItem(newProduct);
 
-
-    
-
-  formRef.current.reset();
+    formRef.current.reset();
   };
 
   return (
@@ -45,7 +37,9 @@ const ListCreateForm = ({ products, addNewProduct ,addNewItem }) => {
           </div>
           <Select ref={selectRef} name="product-name" id="countries" required>
             {products.map((product) => (
-              <option key={product.id} id={product.id}>{product.name}</option>
+              <option key={product.id} id={product.id}>
+                {product.name}
+              </option>
             ))}
           </Select>
         </div>
@@ -53,7 +47,12 @@ const ListCreateForm = ({ products, addNewProduct ,addNewItem }) => {
           <div className="mb-2 block">
             <Label htmlFor="base" value="Quantity" />
           </div>
-          <TextInput ref={quantityRef} id="quantity" type="number" sizing="md" />
+          <TextInput
+            ref={quantityRef}
+            id="quantity"
+            type="number"
+            sizing="md"
+          />
         </div>
         <Button
           onClick={handleForm}

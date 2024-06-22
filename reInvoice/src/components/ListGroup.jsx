@@ -2,10 +2,10 @@ import { Table } from "flowbite-react";
 import React from "react";
 import List from "./List";
 
-const ListGroup = ({ products, items }) => {
+const ListGroup = ({ products, items,handleQuantity,HandleDelList }) => {
 
   const totalCost = (items.reduce((pv,cv) => pv+parseFloat(cv.cost),0)).toFixed(2)
-  console.log(totalCost)
+
 
   return (
     <div className="overflow-x-auto">
@@ -21,10 +21,10 @@ const ListGroup = ({ products, items }) => {
         </Table.Head>
         <Table.Body className="divide-y">
           {items.map((item) => (
-            <List item={item} key={item.id}></List>
+            <List HandleDelList={HandleDelList} handleQuantity={handleQuantity} item={item} key={item.id}></List>
           ))}
 
-          {products.length === 0 && (
+          {items.length === 0 && (
             <Table.Row>
               <Table.Cell colSpan={5} className="text-center">
                 There is no record!
